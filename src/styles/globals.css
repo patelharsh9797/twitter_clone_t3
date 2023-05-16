@@ -1,3 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.btn {
+    @apply bg-blue-400 text-white px-12 py-2 rounded-full font-bold uppercase
+}
+
+.btn:hover {
+    @apply bg-blue-500
+}
+
+.btn-light {
+    @apply bg-slate-100 text-black px-12 py-2 rounded-full font-bold uppercase
+}
+
+.btn-light:hover {
+    @apply bg-slate-300
+}
