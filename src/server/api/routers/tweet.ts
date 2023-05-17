@@ -59,7 +59,7 @@ export const tweetRouter = createTRPCRouter({
 
       return {
         tweets: data.map((tweet) => {
-          const tweetObj = {
+          return {
             id: tweet.id,
             content: tweet.content,
             createdAt: tweet.createdAt,
@@ -67,8 +67,6 @@ export const tweetRouter = createTRPCRouter({
             user: tweet.user,
             likedByMe: tweet.likes?.length > 0,
           };
-
-          return tweetObj;
         }),
         nextCursor,
       };
