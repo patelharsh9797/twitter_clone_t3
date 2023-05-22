@@ -29,7 +29,7 @@ function RecentTweets() {
       tweets={tweets.data?.pages.flatMap((page) => page.tweets)}
       isError={tweets.isError}
       isLoading={tweets.isLoading}
-      hasMore={tweets.hasNextPage}
+      hasMore={tweets.hasNextPage || false}
       fetchNewTweets={tweets.fetchNextPage}
     />
   );
