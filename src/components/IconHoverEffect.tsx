@@ -3,11 +3,13 @@ import type { ReactNode } from "react";
 type IconHoverEffectProps = {
   children: ReactNode;
   red?: boolean;
+  fullWidth?: boolean;
 };
 
 export function IconHoverEffect({
   children,
   red = false,
+  fullWidth = false,
 }: IconHoverEffectProps) {
   const colorClasses = red
     ? "outline-red-400 hover:bg-red-200 group-hover-bg-red-200 group-focus-visible:bg-red-200 focus-visible:bg-red-200"
@@ -15,7 +17,9 @@ export function IconHoverEffect({
 
   return (
     <div
-      className={`rounded-full p-2 transition-colors duration-200 ${colorClasses}`}
+      className={`rounded-full p-2 transition-colors duration-200 ${colorClasses} ${
+        fullWidth ? "w-full" : ""
+      }`}
     >
       {children}
     </div>
