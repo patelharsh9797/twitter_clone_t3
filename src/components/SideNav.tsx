@@ -30,7 +30,7 @@ export default function SideNave({ darkMode, setDarkMode }: SideNaveProps) {
           <IconHoverEffect>
             <button
               type="button"
-              className="flex items-center gap-4"
+              className="flex w-full items-center gap-4"
               onClick={() => setDarkMode((prev) => !prev)}
             >
               {!darkMode ? (

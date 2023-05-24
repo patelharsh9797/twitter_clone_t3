@@ -23,10 +23,10 @@ const MyApp: AppType<{ session: Session | null }> = ({
           <meta name="description" content="Twitter clone using the T3 Stack" />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <div className="dark:bg-slate-900 dark:text-slate-100">
+        <div className="dark:bg-black dark:text-slate-100">
           <div className="container mx-auto flex items-start sm:pr-4">
             <SideNave darkMode={darkMode} setDarkMode={setDarkMode} />
-            <div className="h-screen flex-grow border-x">
+            <div className="h-screen flex-grow overflow-y-auto border-x">
               <Component {...pageProps} />
             </div>
           </div>

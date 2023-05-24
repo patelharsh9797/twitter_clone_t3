@@ -72,6 +72,10 @@ function Form() {
 
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
+    if (inputValue.trim() === "") {
+      alert("Input is require");
+      return null;
+    }
     mutate({ content: inputValue });
   };
 
@@ -85,7 +89,7 @@ function Form() {
         <ProfileImage src={session.data.user.image} />
         <textarea
           ref={inputRef}
-          className="flex-grow resize-none overflow-hidden p-4 text-lg outline-none"
+          className="flex-grow resize-none overflow-hidden bg-transparent p-4 text-lg outline-none"
           placeholder="What's happening?"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}

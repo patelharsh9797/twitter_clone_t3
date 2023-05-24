@@ -1,13 +1,14 @@
-import { Prisma } from "@prisma/client";
-import { inferAsyncReturnType } from "@trpc/server";
 import { z } from "zod";
+import type { Prisma } from "@prisma/client";
+import type { inferAsyncReturnType } from "@trpc/server";
 
 import {
   createTRPCRouter,
   publicProcedure,
   protectedProcedure,
-  createTRPCContext,
 } from "~/server/api/trpc";
+
+import type { createTRPCContext } from "~/server/api/trpc";
 
 export const tweetRouter = createTRPCRouter({
   // getAll: publicProcedure.query(async ({ ctx }) => {
@@ -23,18 +24,12 @@ export const tweetRouter = createTRPCRouter({
       z.object({
         onlyFollowing: z.boolean().optional(),
         limit: z.number().optional(),
-        cursor: z
-          .object({
-            id: z.string(),
-            createdAt: z.date(),
-          })
-          .optional(),
+        cursor: z.object({ id: z.string(), createdAt: z.date() }).optional(),
       })
     )
     .query(
       async ({ input: { limit = 10, onlyFollowing = false, cursor }, ctx }) => {
         const currentUserId = ctx.session?.user.id;
-
         return await getInfiniteTweets({
           limit,
           ctx,
@@ -44,28 +39,49 @@ export const tweetRouter = createTRPCRouter({
               ? undefined
               : {
                   user: {
-                    followers: {
-                      some: { id: currentUserId },
-                    },
+                    followers: { some: { id: currentUserId } },
                   },
                 },
         });
       }
     ),
+  infiniteProfileFeed: publicProcedure
+    .input(
+      z.object({
+        userId: z.string(),
+        limit: z.number().optional(),
+        cursor: z
+          .object({
+            id: z.string(),
+            createdAt: z.date(),
+          })
+          .optional(),
+      })
+    )
+    .query(async ({ input: { limit = 10, userId, cursor }, ctx }) => {
+      return await getInfiniteTweets({
+        limit,
+        ctx,
+        cursor,
+        whereClause: { userId },
+      });
+    }),
   create: protectedProcedure
     .input(
       z.object({
-        content: z.string(),
+        content: z.string().nonempty(),
       })
     )
     .mutation(async ({ ctx, input }) => {
       const userId = ctx.session.user.id;
+
       const tweet = await ctx.prisma.tweet.create({
         data: {
           userId,
           content: input.content,
         },
       });
+
       return tweet;
     }),
 

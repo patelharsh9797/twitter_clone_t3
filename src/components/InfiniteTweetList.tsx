@@ -104,6 +104,11 @@ function TweetCard({
       };
 
       tweet.infiniteFeed.setInfiniteData({}, updateData);
+      tweet.infiniteFeed.setInfiniteData({ onlyFollowing: true }, updateData);
+      tweet.infiniteProfileFeed.setInfiniteData(
+        { userId: user.id },
+        updateData
+      );
     },
   });
 

@@ -15,7 +15,7 @@ const Home: NextPage = () => {
   const session = useSession();
   return (
     <>
-      <header className="sticky border-b p-4">
+      <header className="sticky top-0 z-10 border-b bg-white p-4 dark:bg-black">
         <h1 className="text-2xl font-bold">Home</h1>
         {session.status === "authenticated" && (
           <div className="flex pt-2">
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
               return (
                 <button
                   key={tab}
-                  className={`flex-grow p-2 hover:bg-gray-200 focus-visible:bg-gray-200 ${
+                  className={`flex-grow p-2 hover:bg-gray-200 focus-visible:bg-gray-200 dark:hover:bg-slate-800 dark:focus-visible:bg-slate-800 ${
                     tab === selectedTab
                       ? "border-b-4 border-b-blue-500 font-bold"
                       : ""
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
           </div>
         )}
       </header>
-      <main className="">
+      <main>
         <NewTweetForm />
         {selectedTab === "Recent" ? <RecentTweets /> : <FollowingTweets />}
       </main>
