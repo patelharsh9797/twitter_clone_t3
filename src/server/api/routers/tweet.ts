@@ -82,6 +82,7 @@ export const tweetRouter = createTRPCRouter({
         },
       });
 
+      void ctx.revalidateSSG?.(`/profiles/${userId}`);
       return tweet;
     }),
 
